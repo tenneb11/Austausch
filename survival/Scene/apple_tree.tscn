@@ -1,0 +1,59 @@
+[gd_scene load_steps=8 format=3 uid="uid://4e2cq5b28pbq"]
+
+[ext_resource type="Script" path="res://Script/apple_tree.gd" id="1_lykcx"]
+[ext_resource type="Resource" uid="uid://my67vw40jph3" path="res://inventory/items/apple.tres" id="2_kif4r"]
+[ext_resource type="Texture2D" uid="uid://ds61ccc8kmjwj" path="res://art/survivalgame-appletree.png" id="2_tntrn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q7nus"]
+atlas = ExtResource("2_tntrn")
+region = Rect2(40, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tn3vw"]
+atlas = ExtResource("2_tntrn")
+region = Rect2(80, 0, 40, 40)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h7xl3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q7nus")
+}],
+"loop": true,
+"name": &"apples",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tn3vw")
+}],
+"loop": true,
+"name": &"no_apples",
+"speed": 0.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_k7031"]
+radius = 30.0
+
+[node name="apple_tree" type="Node2D"]
+script = ExtResource("1_lykcx")
+item = ExtResource("2_kif4r")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_h7xl3")
+animation = &"apples"
+
+[node name="pick_area" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="pick_area"]
+shape = SubResource("CircleShape2D_k7031")
+
+[node name="grow_Timer" type="Timer" parent="."]
+wait_time = 120.0
+
+[node name="Marker2D" type="Marker2D" parent="."]
+
+[connection signal="area_exited" from="pick_area" to="." method="_on_pick_area_area_exited"]
+[connection signal="area_shape_entered" from="pick_area" to="." method="_on_pick_area_area_shape_entered"]
+[connection signal="body_entered" from="pick_area" to="." method="_on_pick_area_body_entered"]
+[connection signal="body_exited" from="pick_area" to="." method="_on_pick_area_body_exited"]
+[connection signal="timeout" from="grow_Timer" to="." method="_on_grow_timer_timeout"]

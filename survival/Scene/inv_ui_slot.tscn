@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3 uid="uid://cvc8dq1dk3v7h"]
+
+[ext_resource type="Script" path="res://inventory/inv_ui_slot.gd" id="1_y06fd"]
+[ext_resource type="Texture2D" uid="uid://baceba7dx4p6t" path="res://art/inventory-slot.png" id="2_sb50d"]
+
+[node name="inv_ui_slot" type="Panel"]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(16, 16)
+offset_right = 16.0
+offset_bottom = 16.0
+script = ExtResource("1_y06fd")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_sb50d")
+centered = false
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 0
+offset_right = 16.0
+offset_bottom = 16.0
+
+[node name="Panel" type="Panel" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="Item_display" type="Sprite2D" parent="CenterContainer/Panel"]
+
+[node name="Label" type="Label" parent="CenterContainer/Panel"]
+custom_minimum_size = Vector2(19, 23)
+layout_mode = 0
+offset_left = 11.0
+offset_top = 2.0
+offset_right = 30.0
+offset_bottom = 25.0
+scale = Vector2(0.5, 0.5)
+pivot_offset = Vector2(-26, -8)
+text = "99"
+horizontal_alignment = 2
