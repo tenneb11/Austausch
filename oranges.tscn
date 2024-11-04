@@ -1,0 +1,48 @@
+[gd_scene load_steps=6 format=3 uid="uid://dg70bdd0447u7"]
+
+[ext_resource type="Script" path="res://oranges.gd" id="1_4rab8"]
+[ext_resource type="Texture2D" uid="uid://d1f5u56nm40x5" path="res://art/survivalgame-orangetree.png" id="2_hiltx"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ok54"]
+atlas = ExtResource("2_hiltx")
+region = Rect2(40, 0, 40, 40)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_uiu1f"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"no oranges",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7ok54")
+}],
+"loop": true,
+"name": &"oranges",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_h7u1u"]
+radius = 41.0
+
+[node name="oranges" type="Node2D"]
+script = ExtResource("1_4rab8")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_uiu1f")
+animation = &"oranges"
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="pickable_area" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_h7u1u")
+
+[node name="growth_timer" type="Timer" parent="."]
+
+[node name="Marker2D" type="Marker2D" parent="."]
+gizmo_extents = 73.1
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="timeout" from="growth_timer" to="." method="_on_growth_timer_timeout"]
